@@ -16,6 +16,8 @@ public class MainPresenter implements MainContract.Presenter {
 
     public MainPresenter(Context context, MainContract.View view) {
         this.view = view;
+        this.context=context;
+        this.view=view;
         model=new MainModel(context);
     }
 
