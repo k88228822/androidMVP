@@ -6,7 +6,7 @@ import com.example.wang.test.contract.MainContract;
 import com.example.wang.test.entity.TblUser;
 import com.example.wang.test.net.RetrofitHelper;
 import com.example.wang.test.ui.MainActivity;
-import com.trello.rxlifecycle.ActivityEvent;
+import com.trello.rxlifecycle.android.ActivityEvent;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
