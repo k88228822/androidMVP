@@ -1,5 +1,7 @@
 package com.example.wang.test.contract;
 
+import com.example.wang.test.entity.TblUser;
+
 /**
  * Created by wangzhen on 2016/12/19.
  */
@@ -7,7 +9,7 @@ package com.example.wang.test.contract;
 public class MainContract {
 
     public interface Model{
-        public void getNetInfo();
+        public TblUser getNetInfo();
     }
 
     public interface View{

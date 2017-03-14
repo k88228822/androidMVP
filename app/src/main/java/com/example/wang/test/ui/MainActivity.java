@@ -37,7 +37,6 @@ public class MainActivity extends RxBaseActivity implements MainContract.View{
 
     }
 
-
     @Override
     public void setResultText(String resultText) {
 

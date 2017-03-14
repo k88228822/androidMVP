@@ -24,39 +24,8 @@ public class MainModel implements MainContract.Model{
     }
 
     @Override
-    public void getNetInfo() {
-
-//        new RetrofitHelper().getParamTestResult("1")
-//                .compose(context.<TestResult>bindUntilEvent(ActivityEvent.DESTROY))
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Action1<TestResult>() {
-//                    @Override
-//                    public void call(TestResult testResult) {
-//                        System.out.println("testResult:"+testResult);
-//                    }
-//                }, new Action1<Throwable>() {
-//                    @Override
-//                    public void call(Throwable throwable) {
-//
-//                    }
-//                });
-//        new RetrofitHelper().getResult()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Action1<TestResult>() {
-//                               @Override
-//                               public void call(TestResult testResult) {
-//                                   System.out.println(testResult.getCode()+testResult.getDesc());
-//                                   System.out.println("ip:"+testResult.getData().getIp());
-//                               }
-//                           },
-//                        new Action1<Throwable>() {
-//                            @Override
-//                            public void call(Throwable throwable) {
-//                                System.out.println("异常");
-//                            }
-//                        });
+    public TblUser getNetInfo() {
+        final TblUser[] user = {null};
 
         new RetrofitHelper().getUserInfo("getUserInfo","1")
                 .compose(context.<TblUser>bindUntilEvent(ActivityEvent.DESTROY))
@@ -65,10 +34,10 @@ public class MainModel implements MainContract.Model{
                 .subscribe(new Action1<TblUser>() {
                     @Override
                     public void call(TblUser object) {
-                        TblUser user=object;
-                        System.out.println("用户名是："+user.getName());
-                        System.out.println("登录密码是："+user.getLoginpassword());
-
+//                        TblUser user=object;
+                        user[0] =object;
+                        System.out.println("用户名是："+ user[0].getName());
+                        System.out.println("登录密码是："+ user[0].getLoginpassword());
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -76,6 +45,7 @@ public class MainModel implements MainContract.Model{
                         System.out.println("异常");
                     }
                 });
+        return user[0];
     }
 
 }

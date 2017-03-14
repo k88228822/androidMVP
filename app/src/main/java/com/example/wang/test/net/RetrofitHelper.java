@@ -32,46 +32,15 @@ public class RetrofitHelper implements ApiService{
         initOkHttpClient();
     }
 
-
-    public  static ApiService getApi (String baseuRL){
-
-        Retrofit.Builder builder = new Retrofit.Builder();
-
-        return  builder.client(mOkHttpClient)
-                .baseUrl(baseuRL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build()
-                .create(ApiService.class);
-    }
-
-
-    @Override
-    public Observable<TblUser> getUserInfo(@Query("method") String method, @Query("userId") String userId) {
-        return getApi(BASE_URL).getUserInfo(method,userId);
-    }
-
-    @Override
-    public Observable<TestResult> getResult() {
-        return getApi(TEST_URL).getResult();
-    }
-
-    @Override
-    public Observable<TestResult> getParamTestResult(@Query("id") String id) {
-        return getApi(TEST_URL).getParamTestResult(id);
-    }
-
     /**
      * 初始化OKHttpClient
      */
     private static void initOkHttpClient()
     {
-
 //        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 //        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         if (mOkHttpClient == null)
         {
-
             synchronized (RetrofitHelper.class)
             {
                 if (mOkHttpClient == null)
@@ -90,5 +59,33 @@ public class RetrofitHelper implements ApiService{
             }
         }
     }
+
+    public  static ApiService getApi (String baseuRL){
+
+        Retrofit.Builder builder = new Retrofit.Builder();
+
+        return  builder.client(mOkHttpClient)
+                .baseUrl(baseuRL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build()
+                .create(ApiService.class);
+    }
+
+    @Override
+    public Observable<TblUser> getUserInfo(@Query("method") String method, @Query("userId") String userId) {
+        return getApi(BASE_URL).getUserInfo(method,userId);
+    }
+
+    @Override
+    public Observable<TestResult> getResult() {
+        return getApi(TEST_URL).getResult();
+    }
+
+    @Override
+    public Observable<TestResult> getParamTestResult(@Query("id") String id) {
+        return getApi(TEST_URL).getParamTestResult(id);
+    }
+
 
 }

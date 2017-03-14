@@ -19,7 +19,6 @@ public abstract class RxBaseFragment extends RxFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-
         rootView = inflater.inflate(getLayoutId(), container, false);
 
         return rootView;
