@@ -8,6 +8,9 @@ import com.example.wang.test.R;
 import com.example.wang.test.base.RxBaseActivity;
 import com.example.wang.test.contract.MainContract;
 import com.example.wang.test.presenter.MainPresenter;
+import com.jakewharton.rxbinding.view.RxView;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,6 +28,14 @@ public class MainActivity extends RxBaseActivity implements MainContract.View{
     @Override
     public void initViews(Bundle savedInstanceState) {
         presenter=new MainPresenter(MainActivity.this,this);
+        RxView.clicks(button)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(this::buttonOnClick);
+
+    }
+
+    public void buttonOnClick(Void v){
+
     }
 
     @OnClick(R.id.button)

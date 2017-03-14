@@ -9,7 +9,6 @@ import com.example.wang.test.ui.MainActivity;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -22,30 +21,37 @@ public class MainModel implements MainContract.Model{
     public MainModel(Context context){
         this.context =(MainActivity) context;
     }
-
+    public TblUser user;
     @Override
     public TblUser getNetInfo() {
-        final TblUser[] user = {null};
-
         new RetrofitHelper().getUserInfo("getUserInfo","1")
                 .compose(context.<TblUser>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<TblUser>() {
-                    @Override
-                    public void call(TblUser object) {
-//                        TblUser user=object;
-                        user[0] =object;
-                        System.out.println("用户名是："+ user[0].getName());
-                        System.out.println("登录密码是："+ user[0].getLoginpassword());
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        System.out.println("异常");
-                    }
-                });
-        return user[0];
+                .subscribe(this::onSuccess,this::onError);
+//                .subscribe(new Action1<TblUser>() {
+//                    @Override
+//                    public void call(TblUser object) {
+////                        TblUser user=object;
+//                        user[0] =object;
+//                        System.out.println("用户名是："+ user[0].getName());
+//                        System.out.println("登录密码是："+ user[0].getLoginpassword());
+//                    }
+//                }, new Action1<Throwable>() {
+//                    @Override
+//                    public void call(Throwable throwable) {
+//                        System.out.println("异常");
+//                    }
+//                });
+        return user;
+    }
+
+    public void onSuccess(TblUser user){
+        this.user=user;
+    }
+
+    public void onError(Throwable throwable){
+        System.out.println("异常");
     }
 
 }
