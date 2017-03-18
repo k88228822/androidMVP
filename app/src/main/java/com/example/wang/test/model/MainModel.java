@@ -8,7 +8,7 @@ import com.example.wang.test.net.RetrofitHelper;
 import com.example.wang.test.ui.MainActivity;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
-import rx.android.schedulers.AndroidSchedulers;
+import rx.Observable;
 import rx.schedulers.Schedulers;
 
 /**
@@ -23,12 +23,10 @@ public class MainModel implements MainContract.Model{
     }
     public TblUser user;
     @Override
-    public TblUser getNetInfo() {
-        new RetrofitHelper().getUserInfo("getUserInfo","1")
+    public Observable<TblUser> getNetInfo() {
+        return new RetrofitHelper().getUserInfo("getUserInfo","1")
                 .compose(context.<TblUser>bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onSuccess,this::onError);
+                .subscribeOn(Schedulers.io());
 //                .subscribe(new Action1<TblUser>() {
 //                    @Override
 //                    public void call(TblUser object) {
@@ -43,7 +41,6 @@ public class MainModel implements MainContract.Model{
 //                        System.out.println("异常");
 //                    }
 //                });
-        return user;
     }
 
     public void onSuccess(TblUser user){

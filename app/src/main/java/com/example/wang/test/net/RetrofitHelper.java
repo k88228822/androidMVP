@@ -3,7 +3,6 @@ package com.example.wang.test.net;
 import com.example.wang.test.application.MyApplication;
 import com.example.wang.test.entity.TblUser;
 import com.example.wang.test.entity.TestResult;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +50,7 @@ public class RetrofitHelper implements ApiService{
                     mOkHttpClient = new OkHttpClient.Builder()
                             .cache(cache)
                             .addInterceptor(new LoggingInterceptor())
-                            .addNetworkInterceptor(new StethoInterceptor())
+//                            .addNetworkInterceptor(new StethoInterceptor())
                             .retryOnConnectionFailure(true)
                             .connectTimeout(20, TimeUnit.SECONDS)
                             .build();

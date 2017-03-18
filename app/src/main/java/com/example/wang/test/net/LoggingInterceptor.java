@@ -1,14 +1,12 @@
 package com.example.wang.test.net;
 
 
+import android.util.Log;
 import java.io.IOException;
-
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-
-import static okhttp3.internal.Internal.logger;
 
 /**
  * Created by wangzhen on 2016/12/20.
@@ -21,7 +19,7 @@ public class LoggingInterceptor implements Interceptor {
         Request request = chain.request();
 
         long t1 = System.nanoTime();//请求发起的时间
-        logger.info(String.format("发送请求 %s on %s%n%s",
+        Log.i("request",String.format("发送请求 %s on %s%n%s",
                 request.url(), chain.connection(), request.headers()));
 
         Response response = chain.proceed(request);
@@ -33,7 +31,7 @@ public class LoggingInterceptor implements Interceptor {
         //个新的response给应用层处理
         ResponseBody responseBody = response.peekBody(1024 * 1024);
 
-        logger.info(String.format("接收响应: [%s] %n返回json:【%s】 %.1fms%n%s",
+        Log.i("response",String.format("接收响应: [%s] %n返回json:【%s】 %.1fms%n%s",
                 response.request().url(),
                 responseBody.string(),
                 (t2 - t1) / 1e6d,

@@ -24,14 +24,6 @@ public abstract class RxBaseActivity extends RxAppCompatActivity
         initToolBar();
     }
 
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-
-    }
-
     public abstract int getLayoutId();
 
     public abstract void initViews(Bundle savedInstanceState);

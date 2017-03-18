@@ -2,6 +2,8 @@ package com.example.wang.test.contract;
 
 import com.example.wang.test.entity.TblUser;
 
+import rx.Observable;
+
 /**
  * Created by wangzhen on 2016/12/19.
  */
@@ -9,7 +11,7 @@ import com.example.wang.test.entity.TblUser;
 public class MainContract {
 
     public interface Model{
-        public TblUser getNetInfo();
+        public Observable<TblUser> getNetInfo();
     }
 
     public interface View{
