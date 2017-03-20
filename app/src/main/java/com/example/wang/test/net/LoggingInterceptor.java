@@ -2,7 +2,13 @@ package com.example.wang.test.net;
 
 
 import android.util.Log;
+
+import com.example.wang.test.application.MyApplication;
+import com.example.wang.test.utils.NetUtils;
+
 import java.io.IOException;
+
+import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -22,6 +28,14 @@ public class LoggingInterceptor implements Interceptor {
         Log.i("request",String.format("发送请求 %s on %s%n%s",
                 request.url(), chain.connection(), request.headers()));
 
+        if (!NetUtils.isNetworkAvailable(MyApplication.getContext())){
+            request = request.newBuilder()
+                    .cacheControl(CacheControl.FORCE_CACHE)
+                    .build();
+            Log.i("net","暂无网络");
+        }
+
+
         Response response = chain.proceed(request);
 
         long t2 = System.nanoTime();//收到响应的时间
@@ -36,6 +50,20 @@ public class LoggingInterceptor implements Interceptor {
                 responseBody.string(),
                 (t2 - t1) / 1e6d,
                 response.headers()));
+
+        if (NetUtils.isNetworkAvailable(MyApplication.getContext())){
+            int maxAge =2; // 有网络情况下缓存失效时间
+            response.newBuilder()
+                    .removeHeader("Pragma")
+                    .header("Cache-Control", "public, max-age=" + maxAge)
+                    .build();
+        } else {
+            int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
+            response.newBuilder()
+                    .removeHeader("Pragma")
+                    .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                    .build();
+        }
 
         return response;
     }

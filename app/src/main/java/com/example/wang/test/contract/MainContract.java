@@ -11,14 +11,14 @@ import rx.Observable;
 public class MainContract {
 
     public interface Model{
-        public Observable<TblUser> getNetInfo();
+        Observable<TblUser> getNetInfo();
     }
 
     public interface View{
-        public void setResultText(String resultText);
+        void setResultText(String resultText);
     }
 
     public interface Presenter{
-        public void init();//初始化
+        void init();//初始化
     }
 }

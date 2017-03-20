@@ -1,9 +1,8 @@
-package com.example.wang.test.presenter;
+package com.example.wang.test.modules.main;
 
 import android.content.Context;
 
 import com.example.wang.test.contract.MainContract;
-import com.example.wang.test.model.MainModel;
 
 /**
  * Created by wangzhen on 2016/12/19.

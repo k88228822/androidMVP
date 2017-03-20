@@ -1,11 +1,10 @@
-package com.example.wang.test.model;
+package com.example.wang.test.modules.main;
 
 import android.content.Context;
 
 import com.example.wang.test.contract.MainContract;
 import com.example.wang.test.entity.TblUser;
 import com.example.wang.test.net.RetrofitHelper;
-import com.example.wang.test.ui.MainActivity;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 import rx.Observable;
@@ -25,7 +24,7 @@ public class MainModel implements MainContract.Model{
     @Override
     public Observable<TblUser> getNetInfo() {
         return new RetrofitHelper().getUserInfo("getUserInfo","1")
-                .compose(context.<TblUser>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribeOn(Schedulers.io());
 //                .subscribe(new Action1<TblUser>() {
 //                    @Override
